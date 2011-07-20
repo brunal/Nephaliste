@@ -40,7 +40,7 @@ class User(models.Model):
 
 	coopeman = models.BooleanField(default=False)
 
-	solde = models.DecimalField(max_digits=5, decimal_places=2)
+	solde = models.DecimalField(max_digits=5, decimal_places=2, default=0)
 	#Date de création du compte
 	arrivee = models.DateTimeField(auto_now_add=True)
 	#Dernière fois que l'utilisateur a été vu
@@ -52,5 +52,26 @@ class User(models.Model):
 	caution = models.DateField(blank=True, null=True)
 
 	def __unicode__(self):
-		return self.prenom + " " + self.nom + "(" + self.solde + ", " + self.promotion  + ")"
+		return self.prenom + " " + self.nom
+
+	def crediter(self, montant, forme):
+		"""
+		Effectue un dépôt sur le compte d'un consommateur et l'enregistre
+
+		>>> user = User.objects.create(prenom="Hervé", nom="Leguil", email="herve.leguil@supelec.fr")
+		>>> user.solde
+		0
+		>>> user.crediter(10, "liquide")
+		>>> user.solde
+		10
+		"""
+
+		depot = Depot.objects.create(user=self, montant=montant, forme=forme)
+		return depot
+
+	def debiter(self, consommation):
+		"""
+		Débite une boisson à un consommateur
+		"""
+		commande = Historique.objects.create(user=self, consommation=consommation)
 
