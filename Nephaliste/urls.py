@@ -1,10 +1,14 @@
 from django.conf.urls.defaults import patterns, include, url
 
 # Uncomment the next two lines to enable the admin:
-# from django.contrib import admin
-# admin.autodiscover()
+from django.contrib import admin
+admin.autodiscover()
 
 urlpatterns = patterns('',
+		(r'^bar/', include('Nephaliste.bar.urls')),
+		(r'^', include('Nephaliste.accueil.urls')),
+	)
+
     # Examples:
     # url(r'^$', 'Nephaliste.views.home', name='home'),
     # url(r'^Nephaliste/', include('Nephaliste.foo.urls')),
