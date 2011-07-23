@@ -1,6 +1,6 @@
 #coding=utf-8
 from django.db import models
-from datetime import date
+from datetime import datetime, date
 
 class Consommation(models.Model):
 	"""
@@ -16,8 +16,12 @@ class Consommation(models.Model):
 	disponible = models.BooleanField(default=True)
 	prix = models.DecimalField(max_digits=4, decimal_places=2)
 
+	def popularite(self):
+		popularite = sum(self.historique_set.filter(date__gt=datetime.today()))
+		return popularite
+
 	def __unicode__(self):
-		nom = self.nom + u" à " + self.prix + "€"
+		nom = self.nom + u" à " + self.prix + u"€"
 		if(not disponible):
 			nom += " (indisponible)"
 		return nom
