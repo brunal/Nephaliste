@@ -76,8 +76,8 @@ class Promotion(models.Model):
 		>>> promo.papys()
 		True
 		>>> promo2 = Promotion.objects.create(annee=2010)
-		>>> promo2.papys()
-		False
+	>>> promo2.papys()
+	False
 		"""
 
 		return date.today().year - self.annee.year > 1
