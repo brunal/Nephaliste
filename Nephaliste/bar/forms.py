@@ -1,8 +1,9 @@
 #encoding=utf-8
-from django import forms
-from widgets import *
+from django.forms import ModelForm
+from models import Historique
+#from widgets import *
 
-class ConsommerForm(forms.ModelForm):
+class ConsommerForm(ModelForm):
 	"""
 	Formulaire pour la consommation par une personne
 	"""

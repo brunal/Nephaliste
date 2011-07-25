@@ -1,4 +1,4 @@
-Consommations :
-{% for consommation in consommations %}
-{{ consommation.nom }}, {{ consommation.prix }}.
-{% endfor %}
+<form method="post">
+	{% csrf_token %}
+	{{ form.as_p }}
+</form>
