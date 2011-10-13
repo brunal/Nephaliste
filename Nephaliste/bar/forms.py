@@ -13,3 +13,9 @@ class ConsommerForm(ModelForm):
 #				'nom': UserList()
 #	}
 
+class CrediterForm(ModelForm):
+        """
+        Formulaire pour le crédit d'un compte
+        """
+        class Meta:
+                model = Depot
