@@ -9,7 +9,7 @@ def comptoir(request, error="", message=""):
 	"""
 	consommer = ConsommerForm()
 
-	return render_to_response('bar/comptoir.html', {'form': consommer, 'message': message}, context_instance=RequestContext(request))
+        return render_to_response('bar/comptoir.html', {'form': consommer, 'message': message, 'error': error}, context_instance=RequestContext(request))
 
 	#consommations = Consommation.objects.filter(disponible=True)
 	#consommations = sorted(consommations, key=lambda conso: -conso.popularite())
