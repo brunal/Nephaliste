@@ -49,3 +49,7 @@ def crediter(request):
                         message = u"Il y a eu un problème dans le traitement du formulaire."
 
 	return comptoir(request, message=message)
+
+
+def apercu(request):
+        return False

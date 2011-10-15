@@ -22,7 +22,7 @@ class Consommation(models.Model):
 		return popularite
 
 	def __unicode__(self):
-		nom = self.nom + u" à " + self.prix + u"€"
+		nom = self.nom + u" à " + str(self.prix) + u"€"
 		if(not self.disponible):
 			nom += " (indisponible)"
 		return nom

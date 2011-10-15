@@ -5,5 +5,5 @@ urlpatterns = patterns('Nephaliste.bar.views',
 		(r'^comptoir/$', 'comptoir'),
 		(r'^boire/$', 'commander'),
 		(r'^recharger/$', 'crediter'),
-                (r'^controler/$', 'controler'),
+                #(r'^controler/$', 'controler'),
 )
