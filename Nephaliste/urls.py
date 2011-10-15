@@ -6,7 +6,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
 		(r'^bar/', include('Nephaliste.bar.urls')),
-		#(r'^compte/', include('Nephaliste.compte.urls')),
+		(r'^compte/', include('Nephaliste.compte.urls')),
 		#(r'^', include('Nephaliste.accueil.urls')),
 
 		# Examples:
