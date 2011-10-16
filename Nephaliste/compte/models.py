@@ -1,6 +1,7 @@
 #coding=utf-8
 from django.db import models
 from django.contrib.auth.models import User as U
+from datetime import date, timedelta
 
 # Create your models here.
 
@@ -12,9 +13,9 @@ class Promotion(models.Model):
 	annee = models.IntegerField()
 
 	def __unicode__(self):
-		return self.annee
+		return str(self.annee)
 
-	def papys(self):
+	def isPapy(self):
 		"""
 		Retourne vrai quand les membres de cette promotion ont peu de chance d'être encore à l'école
                 Calcul simple : L'année de la promotion est-elle passée depuis plus d'un an ?
@@ -41,6 +42,8 @@ class User(U):
         Elle dérive de django.contrib.auth.User, ce qui pose certains problèmes :
         - username est obligatoire, mais pas nom ni prénom
         - un mot de passe est obligatoire
+
+        Les exemples donnés ne sont pas corrects et n'ont pas valeur de test.
 	"""
 	#prenom = models.CharField(max_length=50)
 	#surnom = models.CharField(max_length=50, blank=True)
@@ -63,7 +66,7 @@ class User(U):
 	caution = models.DateField(blank=True, null=True)
 
 	def __unicode__(self):
-		return self.prenom + " " + self.nom
+		return self.first_name + " " + self.last_name
 
 	def crediter(self, montant, forme):
 		"""
@@ -80,16 +83,16 @@ class User(U):
 		depot = Depot.objects.create(user=self, montant=montant, forme=forme)
 		return depot
 
-	def debiter(self, consommation):
-		"""
-		Débite une boisson à un consommateur
-		"""
-		commande = Historique.objects.create(user=self, consommation=consommation)
-		return commande
-
 	def ajouterCaution(self):
 		"""
 		Ajoute une caution à un utilisateur
 		"""
 		self.caution = date.today()
 		return
+
+        def hasCaution(self):
+                """
+                True s'il y a une caution valide,
+                False sinon
+                """
+                return self.caution is not None and date.today() - self.caution < timedelta(days=365)

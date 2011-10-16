@@ -21,6 +21,14 @@ class Consommation(models.Model):
 		popularite = sum(self.historique_set.filter(date__gt=datetime.today()))
 		return popularite
 
+	def debiter(self, compte):
+		"""
+		Débite une boisson à un consommateur
+		"""
+		commande = Historique.objects.create(user=compte, consommation=self)
+		return commande
+
+
 	def __unicode__(self):
 		nom = self.nom + u" à " + str(self.prix) + u"€"
 		if(not self.disponible):
@@ -54,4 +62,4 @@ class Historique(models.Model):
 	date = models.DateTimeField(auto_now_add=True)
 
 	def __unicode__(self):
-		return self.consommation + " par " + self.user + " le " + self.date
+		return self.consommation.__unicode__() + " par " + self.user.__unicode__() + " le " + self.date.__unicode__()
