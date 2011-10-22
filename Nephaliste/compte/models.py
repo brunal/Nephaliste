@@ -1,9 +1,7 @@
 #coding=utf-8
 from django.db import models
 from django.contrib.auth.models import User as U
-from datetime import date, timedelta
-
-# Create your models here.
+from datetime import date, datetime, timedelta
 
 
 class Promotion(models.Model):
@@ -96,3 +94,72 @@ class User(U):
                 False sinon
                 """
                 return self.caution is not None and date.today() - self.caution < timedelta(days=365)
+        def derniere_visite(self):
+                """
+                Renvoie la dernière mention du compte de la personne dans la DB?
+                Problème : dépendance envers l'app bar -> circulaire...
+                """
+                return self.last_login
+
+
+
+class Depot(models.Model):
+	"""
+	Classe retenant l'argent déposé par un client
+	"""
+	TYPES = (
+			(0, u'cash'),
+			(1, u'chèque'),
+			)
+	type = models.IntegerField(choices=TYPES)
+	date = models.DateTimeField(auto_now_add=True)
+	montant = models.DecimalField(max_digits=5, decimal_places=2)
+	user = models.ForeignKey(User)
+
+	def __unicode__(self):
+		return u"Dépôt par " + self.user.username + u" de " + unicode(self.montant) + u" €  le " + unicode(self.date) + u" (" + self.get_type_display() + u")"
+
+
+class Ouverture(models.Model):
+        """
+        Classe disant si la Coopé est ouverte, et récapitulant
+        quand elle l'a été
+        """
+        ouverture = models.DateTimeField(auto_now_add=True)
+        fermeture = models.DateTimeField(blank=True, null=True)
+
+        def save(self):
+                """
+                Sauve un nouvel objet Ouverture
+                Si un objet Ouverture précédent existe avec fermeture = false,
+                alors il est fermé avec la dernière date présente (dans dépôt
+                ou dans historique)
+                """
+                dernier = Ouverture.objects.latest()
+                if dernier.fermeture is None:
+                        #La Coopé n'a pas été fermée
+                        #TODO: déterminer la date de fermeture
+                        dernier.fermeture = datetime.datetime.now()
+                        dernier.save(force_update=True)
+
+                super(Ouverture, self).save()
+                #models.Model.save(self)
+
+        @staticmethod
+        def statut():
+                """
+                Renvoie le statut actuel de la Coopé
+                True : ouverte
+                False : fermée
+                """
+                dernier = Ouverture.objects.latest()
+                return dernier.fermeture is None
+
+        def __unicode__(self):
+                u =  u"Ouvert le " + unicode(self.ouverture)
+                if self.fermeture is not None:
+                        u += " et fermé le " + unicode(self.fermeture)
+                return u
+
+        class Meta:
+                get_latest_by = "ouverture"

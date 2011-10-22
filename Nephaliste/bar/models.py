@@ -35,23 +35,6 @@ class Consommation(models.Model):
 			nom += " (indisponible)"
 		return nom
 
-class Depot(models.Model):
-	"""
-	Classe retenant l'argent déposé par un client
-	"""
-	TYPES = (
-			(0, u'cash'),
-			(1, u'chèque'),
-			)
-	type = models.IntegerField(choices=TYPES)
-	date = models.DateTimeField(auto_now_add=True)
-	montant = models.DecimalField(max_digits=5, decimal_places=2)
-	user = models.ForeignKey(User)
-
-	def __unicode__(self):
-		return u"Dépôt par " + self.user + " de " + self.montant + "€  le " + self.date + " (" + self.get_type_display() + ")"
-
-
 class Historique(models.Model):
 	"""
 	Classe retenant toutes les commandes passées
@@ -62,4 +45,4 @@ class Historique(models.Model):
 	date = models.DateTimeField(auto_now_add=True)
 
 	def __unicode__(self):
-		return self.consommation.__unicode__() + " par " + self.user.__unicode__() + " le " + self.date.__unicode__()
+		return unicode(self.consommation) + " par " + unicode(self.user) + " le " + unicode(self.date)

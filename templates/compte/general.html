@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<p>Bienvenue. Les différentes pages présentes ici vous permettront de suivre l'état de votre compte Coopé.</p>
+
+<p>Si vous n'en avez pas, vous pouvez en créer un en ligne ou bien en Coopé. Ce compte vous permettra d'aller boire sans argent en poche, ainsi que de régler vos dettes auprès d'autres personnes ayant un compte.</p>
+
+<p>Dans l'idéal (= si je le fais je décide d'ouvrir mon propre bar) il faudrait une interaction avec la musique jouée en votre présence...</p>
+
+
+<p>Il a actuellement {{ comptes }} comptes enregistrés, dont {{ ouverts }} comptes ouverts.</p>
+
+<p>La Coopé est actuellement {{ statut|yesno:"ouverte,fermée,dans un état quantique" }}.</p>
+{% endblock%}

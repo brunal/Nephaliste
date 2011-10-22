@@ -7,14 +7,13 @@ def comptoir(request, error="", message=""):
         """
         Cette page liste les boissons disponibles et propose de consommer
         """
-        #if not request.method == "POST":
-                #return comptoir(request, error="Page accessible uniquement en POST")
         if request.method == "POST":
                 form = ConsommerForm(request.POST)
                 if form.is_valid():
                         data = form.cleaned_data
                         historique = form.save()
-                        message = u"Consommation réussie"
+                        message = u"Consommation : " + unicode(historique)
+                        #message = u"Consommation réussie de " + data.consommation + " par " "
                 else:
                         message = u"Il y a eu un problème dans le traitement du formulaire."
 

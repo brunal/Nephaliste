@@ -1,7 +1,8 @@
 #encoding=utf-8
 from django.forms import ModelForm
-from models import Historique, Depot
-#from widgets import *
+from models import Historique
+from Nephaliste.compte.models import Depot
+from Nephaliste.compte.widgets import ClientsListe
 
 class ConsommerForm(ModelForm):
 	"""
@@ -9,9 +10,9 @@ class ConsommerForm(ModelForm):
 	"""
 	class Meta:
 		model = Historique
-#		widgets = {
-#				'nom': PersonneList()
-#	}
+		widgets = {
+				'user': ClientsListe()
+                }
 
 class CrediterForm(ModelForm):
         """

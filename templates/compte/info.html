@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Compte de {{ user.username }}</h1>
+
+<p>Nom : {{ user.first_name }} {{ user.last_name }}</p>
+
+<p>email : {{ user.email|default:"<em class=\"missing\">á renseigner</em>" }} </p>
+
+<p>Solde : {{ user.solde }} €</p>
+
+<p>Promotion : {{ user.promotion|default:"Extérieur" }}</p>
+
+{% if user.is_staff %}<p>Coopéman</p>{% endif %}
+
+<p>Compte ouvert le {{ user.date_joined }}, dernière visite le {{ user.derniere_visite }}.
+{% if not user.is_active %} Ce compte est fermé.{% endif %}</p>
+
+<p>Dernières consommations :</p>
+<ul>
+        {% for conso in consos %}
+        <li>{{ conso }}</li>
+        {% empty %}
+        <li>Aucune conso</li>
+        {% endfor %}
+</ul>
+
+<p>Derniers dépôts :</p>
+<ul>
+        {% for depot in depots %}
+        <li>{{ depot }}</li>
+        {% empty %}
+        <li>Aucun dépôt</li>
+        {% endfor %}
+</ul>
+
+
+
+
+{% endblock %}
