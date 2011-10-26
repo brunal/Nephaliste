@@ -1,13 +1,15 @@
-{% extends "base.html" %}
+{% extends "compte/profil.html" %}
 
 {% block content %}
 
 
+{% block historique %}
 <ul>
 {% for h in historique %}
         <li>{{ h }}</li>
 {% endfor %}
 </ul>
+{% endblock %}
 
 <p>
 Pages :

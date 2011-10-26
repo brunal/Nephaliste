@@ -1,12 +1,14 @@
 #encoding=utf-8
-# Create your views here.
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.core import serializers
 from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required, user_passes_test
+
 from models import *
 
 from math import ceil
+import simplejson
 
 def resume(request):
         """
@@ -25,6 +27,7 @@ def resume(request):
                         }, context_instance=RequestContext(request))
 
 
+@login_required
 def info(request, compte):
         """
         Dans le futur :
@@ -46,6 +49,7 @@ def info(request, compte):
                           'depots': depots,
                         }, context_instance=RequestContext(request))
 
+@login_required
 def stats(request, compte):
         """
         Idem.
@@ -55,6 +59,7 @@ def stats(request, compte):
 
         return 0
 
+@login_required
 def editer(request, compte):
         """
         Permet à un utilisateur de modifier les informations le concernant
@@ -66,6 +71,7 @@ def editer(request, compte):
                         
         return 0
 
+@login_required
 def historique(request, compte, page=1):
         """
         Affiche la liste des consommations d'un utilisateur
@@ -79,11 +85,12 @@ def historique(request, compte, page=1):
         except User.DoesNotExist:
                 raise Http404
 
-        return render_to_response('compte/historique.html',
+        return render_to_response('compte/consommations.html',
                         { 'historique': historique,
-                          'pages': range(int(ceil(nombre/20))) }, context_instance=RequestContext(request))
+                          'pages': pages(nombre) }, context_instance=RequestContext(request))
 
 
+@login_required
 def depots(request, compte, page=1):
         """
         Affiche la liste des dépôts d'un utilisateur
@@ -97,18 +104,19 @@ def depots(request, compte, page=1):
         except User.DoesNotExist:
                 raise Http404
 
-        return render_to_response('compte/historique.html',
+        return render_to_response('compte/depots.html',
                         { 'historique': depots,
-                          'pages': range(int(ceil(nombre/20))) }, context_instance=RequestContext(request))
+                          'pages': pages(nombre) }, context_instance=RequestContext(request))
+
+def pages(items): 
+        return [v+1 for v in range(int(ceil(items/20.)))]
 
 
+@user_passes_test(lambda u: u.is_staff)
 def liste(request):
         """
         Renvoie la liste des utilisateurs en JSON
         Utilisé par l'autocomplete
-        PUTAIIIIIIIIIIIIIIIIIN
         """
-        data = serializers.serialize("json", User.objects.all())
-        return HttpResponse(serializers.serialize("json", User.objects.values("username")))
-        return HttpResponse(data, mimetype="text/plain")
-        # return HttpResponse(data, mimetype="text/json")
+        data = list(User.objects.values("id","username","solde"))
+        return HttpResponse(simplejson.dumps(data))

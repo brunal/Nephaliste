@@ -2,7 +2,7 @@ from django.conf.urls.defaults import patterns, url
 
 urlpatterns = patterns('Nephaliste.compte.views',
                 (r'^$', 'resume'),
-                (r'^(?P<compte>\d+)/$', 'info'),
+                (r'^(?P<compte>\d+)/info/$', 'info'),
 
                 (r'^(?P<compte>\d+)/consommations/$', 'historique'),
                 (r'^(?P<compte>\d+)/consommations/(?P<page>\d+)$', 'historique'),

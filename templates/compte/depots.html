@@ -1,0 +1,19 @@
+{% extends "compte/historique.html" %}
+
+{% block historique %}
+<table>
+        <tr>
+                <th>Montant</th>
+                <th>Date</th>
+                <th>Type</th>
+        </tr>
+
+{% for d in historique %}
+        <tr>
+                <td>{{ d.montant }}</td>
+                <td>{{ d.date }}</td>
+                <td>{{ d.get_type_display }}</td>
+        </tr>
+{% endfor %}
+</table>
+{% endblock %}

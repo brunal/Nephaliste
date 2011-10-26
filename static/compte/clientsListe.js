@@ -1,6 +1,6 @@
 $(function() {
-        $("#id_user").autocomplete("/compte/liste/", {
-                max: 0,
-                minChars: 2,
+        $("#id_user").autocomplete({
+                source: "/compte/liste",
+                minLength: 2,
                 width: "184px"});
 });
