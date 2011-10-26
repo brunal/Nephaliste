@@ -6,6 +6,8 @@ from django.core import serializers
 from django.http import HttpResponse
 from models import *
 
+from math import ceil
+
 def resume(request):
         """
         Résumé : nombre d'utilisateurs, indications pour
@@ -73,13 +75,13 @@ def historique(request, compte, page=1):
         nombre = user.historique_set.count()
 
         try:
-                historique = User.historique_set.order_by('-date')[20*(page-1):min(20*page,nombre)]
+                historique = user.historique_set.order_by('-date')[20*(page-1):min(20*page,nombre)]
         except User.DoesNotExist:
                 raise Http404
 
         return render_to_response('compte/historique.html',
                         { 'historique': historique,
-                          'nombre': nombre }, content_instance=RequestContext(request))
+                          'pages': range(int(ceil(nombre/20))) }, context_instance=RequestContext(request))
 
 
 def depots(request, compte, page=1):
@@ -97,7 +99,7 @@ def depots(request, compte, page=1):
 
         return render_to_response('compte/historique.html',
                         { 'historique': depots,
-                          'nombre': nombre }, context_instance=RequestContext(request))
+                          'pages': range(int(ceil(nombre/20))) }, context_instance=RequestContext(request))
 
 
 def liste(request):

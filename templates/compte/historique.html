@@ -9,4 +9,11 @@
 {% endfor %}
 </ul>
 
+<p>
+Pages :
+{% for p in pages %}
+ <a href="{{ p }}">{{ p }}</a>
+{% endfor %}
+</p>
+
 {% endblock %}

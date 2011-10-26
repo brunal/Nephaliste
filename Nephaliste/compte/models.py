@@ -1,6 +1,6 @@
-#coding=utf-8
+#encoding=utf-8
 from django.db import models
-from django.contrib.auth.models import User as U
+from django.contrib.auth.models import User as U, UserManager
 from datetime import date, datetime, timedelta
 
 
@@ -62,6 +62,9 @@ class User(U):
 	#Date d'expiration de la caution
 	#Attention : doit être représenté par un booléen côté utilisateur
 	caution = models.DateField(blank=True, null=True)
+
+        #cf http://scottbarnham.com/blog/2008/08/21/extending-the-django-user-model-with-inheritance/
+        objects = UserManager()
 
 	def __unicode__(self):
 		return self.first_name + " " + self.last_name

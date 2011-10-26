@@ -1,16 +1,17 @@
 body {
         color: white;
-        background-color: #324;
+        background-color: #434;
         font-family: sans;
+        margin: 0;
 }
 
 #header {
-        padding: 50px;
+        padding: 1em;
         margin: 0;
-        font-size: 2em;
+        font-size: 3em;
         text-align: center;
         font-family: serif;
-        background-color: #112;
+        background-color: #223;
 }
 
 #sidebar {
@@ -41,7 +42,6 @@ body {
 }
 
 #content {
-        float: clear;
         width: 65%;
         margin: 0 auto;
         padding: 20px;
@@ -52,9 +52,10 @@ body {
 
 #footer {
         margin: 0 auto;
-        padding: 50px 0;
+        padding: 1em 0;
         text-align: center;
         font-variant: small-caps;
         font-style: italic;
-        background-color: #112;
+        background-color: #223;
+        font-family: serif;
 }
