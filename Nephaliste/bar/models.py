@@ -1,6 +1,6 @@
 #coding=utf-8
 from django.db import models
-from datetime import datetime, date
+from datetime import datetime, date, timedelta
 from Nephaliste.compte.models import User
 
 class Consommation(models.Model):
@@ -18,16 +18,11 @@ class Consommation(models.Model):
 	prix = models.DecimalField(max_digits=4, decimal_places=2)
 
 	def popularite(self):
-		popularite = sum(self.historique_set.filter(date__gt=datetime.today()))
+                """
+                Nombre de commandes de cette consommations sur les sept derniers jours
+                """
+		popularite = sum(self.historique_set.filter(date__gt=datetime.today() - timedelta(days=7)))
 		return popularite
-
-	def debiter(self, compte):
-		"""
-		Débite une boisson à un consommateur
-		"""
-		commande = Historique.objects.create(user=compte, consommation=self)
-		return commande
-
 
 	def __unicode__(self):
 		nom = self.nom + u" à " + str(self.prix) + u"€"
@@ -46,3 +41,15 @@ class Historique(models.Model):
 
 	def __unicode__(self):
 		return unicode(self.consommation) + " par " + unicode(self.user) + " le " + unicode(self.date)
+
+        def save(self, *args, **kwargs):
+                """
+                Enregistre un achat à la Coopé
+                On débite donc le compte du consommateur
+                """
+                if self.user.solde - self.consommation.prix >= 0  or self.user.hasCaution() and self.consommation.solde - self.consommation.prix >= -25:
+                        # Solde suffisant
+                        self.user.solde -= self.consommation.prix
+                        super(Historique, self).save(*args, **kwargs)
+                else:
+                        raise SoldeInsuffisant(user=self.user, consommation=self.consommation)

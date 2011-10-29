@@ -80,7 +80,6 @@ class User(U):
 		>>> user.solde
 		10
 		"""
-
 		depot = Depot.objects.create(user=self, montant=montant, forme=forme)
 		return depot
 
@@ -101,6 +100,9 @@ class User(U):
                 """
                 Renvoie la dernière mention du compte de la personne dans la DB?
                 Problème : dépendance envers l'app bar -> circulaire...
+                Solution: màj à chaque save()
+
+                Sauf qu'en fait ca existe déja dans Django... utiliser ca
                 """
                 return self.last_login
 

@@ -1,0 +1,2 @@
+jQuery = django.jQuery
+$ = jQuery
