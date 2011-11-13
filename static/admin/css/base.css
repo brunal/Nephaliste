@@ -1,0 +1,199 @@
+body {
+        margin: 0;
+        padding: 0;
+        font-size: 12px;
+        font-family: "Lucida Grande","DejaVu Sans","Bitstream Vera Sans",Verdana,Arial,sans-serif;
+        color: white;
+        background-color: #111;
+}
+
+/* Links */
+a:link, a:visited {
+        color: #fac;
+        text-decoration: none;
+}
+
+
+/* Header */
+#header {
+        padding: 1em 0;
+        width: 100%;
+        background-color: #000;
+}
+
+#site-name {
+        text-align: center;
+        font-size: 2em;
+}
+
+#user-tools {
+        text-align: right;
+}
+
+#header a:link, #header a:visited {
+        color: #58b;
+}
+
+#header a:hover {
+        text-decoration: underline;
+}
+
+/* Breadcrumbs */
+.breadcrumbs {
+        padding: 0.5em;
+        color: #666;
+        border-top: 1px solid black;
+        border-bottom: 1px solid #333;
+}
+
+/* Footer */
+#footer {
+        padding: 1em 0;
+        width: 100%;
+        clear: both;
+        background-color: #000;
+        font-style: italic;
+        text-align: center
+}
+
+
+/* Content structure */
+
+#container {
+        position: relative;
+        width: 100%;
+        min-width: 760px;
+        padding: 0;
+}
+
+#content {
+}
+
+#header {
+        width: 100%;
+}
+
+#content-main {
+        float:left;
+        width: 100%;
+        margin: 2em;
+}
+
+#content-related {
+        float: right;
+        width: 18em;
+        position: relative;
+        margin-right: -20em;
+}
+
+.dashboard #content {
+    width: 500px;
+}
+
+
+/* Columns */
+.colMS {
+        margin-right: 22em !important;
+}
+
+.colSM {
+        margin-left: 22em !important;
+}
+
+.colSM #content-related {
+        float: left;
+        margin-right: 0;
+        margin-left: -20em;
+}
+
+.colSM #content-main {
+        float: right;
+}
+
+/* Content */
+#content > h1 {
+        margin-left: 2em;
+}
+
+/* Modules */
+.module p, .module ul, .module h3, .module h4, .module dl, .module pre {
+    padding-left: 1em;
+    padding-right: 1em;
+}
+
+.module blockquote {
+    margin-left: 1em;
+}
+
+.module ul, .module ol {
+    margin-left: 1.5em;
+}
+
+.module h3 {
+    margin-top: .6em;
+}
+
+.module h2, .module caption, .inline-group h2 {
+    margin: 0;
+    padding: .3em;
+    text-align: left;
+    font-weight: bold;
+    background-color: #4C5077;
+}
+
+.module table {
+    border-collapse: collapse;
+}
+
+/* recent actions 
+#recent-actions-module > ul.actionlist {
+    list-style-image: url(../images/biere.png);
+}
+*/
+
+/* action icons */
+.addlink {
+    padding-left: 12px;
+    background: url(../img/admin/icon_addlink.gif) 0 .2em no-repeat;
+}
+
+.changelink {
+    padding-left: 12px;
+    background: url(../img/admin/icon_changelink.gif) 0 .2em no-repeat;
+}
+
+.deletelink {
+    padding-left: 12px;
+    background: url(../img/admin/icon_deletelink.gif) 0 .25em no-repeat;
+}
+
+.consommation:before {
+    content: url(../img/admin/icon_conso.png);
+}
+
+.historique:before {
+    content: url(../img/admin/icon_histo.png);
+}
+
+.user:before {
+    font-size: 15px;
+    content: "☺";
+}
+
+.depot:before {
+    content: url(../img/admin/icon_depot.png);
+}
+
+.promotion:before {
+    content: url(../img/admin/icon_promo.png);
+}
+
+.ouverture:before {
+    content: url(../img/admin/icon_etat.png);
+}
+
+/*
+.:before {
+    content: url(../img/admin/icon_.png);
+}
+*/
