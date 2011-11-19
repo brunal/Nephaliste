@@ -10,13 +10,4 @@ class ConsommerForm(ModelForm):
 	"""
 	class Meta:
 		model = Historique
-		widgets = {
-				'user': ClientsListe()
-                }
-
-class CrediterForm(ModelForm):
-        """
-        Formulaire pour le crédit d'un compte
-        """
-        class Meta:
-                model = Depot
+		widgets = { 'user': ClientsListe() }

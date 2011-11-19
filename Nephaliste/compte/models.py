@@ -116,7 +116,7 @@ class Depot(models.Model):
 			(0, u'cash'),
 			(1, u'chèque'),
 			)
-	type = models.IntegerField(choices=TYPES)
+	type = models.IntegerField(choices=TYPES, default=0)
 	date = models.DateTimeField(auto_now_add=True)
 	montant = models.DecimalField(max_digits=5, decimal_places=2)
 	user = models.ForeignKey(User)

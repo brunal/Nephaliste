@@ -138,7 +138,8 @@ a:link, a:visited {
     padding: .3em;
     text-align: left;
     font-weight: bold;
-    background-color: #4C5077;
+    background-color: #3B4066;
+    outline: 2px solid #192044;
 }
 
 .module table {
