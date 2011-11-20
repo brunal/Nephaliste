@@ -371,3 +371,9 @@ input[type=submit]:hover {
 .submit-row input {
     float: right;
 }
+
+/* HISTORIQUE FORM */
+
+#historique_form {
+        font-size: 2em;
+}
